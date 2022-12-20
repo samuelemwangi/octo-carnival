@@ -6,31 +6,29 @@ import org.testng.annotations.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-public class SinglyLinkedListTest {
+public class DoublyLinkedListTest {
     private static final int[] expectedList = new int[]{1, 2, 3, 5, 6, 7, 8, 10};
     private static final int arrayLength = expectedList.length;
 
-
     @Test
     public void testIsEmpty() {
-        SinglyLinkedList linkedList = new SinglyLinkedList();
+        DoublyLinkedList linkedList = new DoublyLinkedList();
         Assert.assertTrue(linkedList.isEmpty());
     }
 
     @Test
     public void testInsertAtHead() {
-        SinglyLinkedList linkedList = new SinglyLinkedList();
+        DoublyLinkedList linkedList = new DoublyLinkedList();
 
         for (int i = arrayLength - 1; i > -1; i--) {
             linkedList.insertAtHead(expectedList[i]);
         }
-
         Assert.assertTrue(compareListItems(linkedList.headNode));
     }
 
     @Test
     public void testInsertAtEnd() {
-        SinglyLinkedList linkedList = new SinglyLinkedList();
+        DoublyLinkedList linkedList = new DoublyLinkedList();
         for (int i = 0; i < arrayLength; i++) {
             linkedList.insertAtEnd(expectedList[i]);
         }
@@ -46,7 +44,7 @@ public class SinglyLinkedListTest {
 
         System.setOut(new PrintStream(outputStream));
 
-        SinglyLinkedList linkedList = new SinglyLinkedList();
+        DoublyLinkedList linkedList = new DoublyLinkedList();
         for (int i = 0; i < arrayLength; i++) {
             linkedList.insertAtEnd(expectedList[i]);
         }
@@ -59,20 +57,20 @@ public class SinglyLinkedListTest {
 
     @Test
     public void testInsertAfter() {
-        int[] updatedList = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 10};
-        SinglyLinkedList linkedList = new SinglyLinkedList();
+        int[] updatedList = new int[]{1, 2, 3, 5, 6, 7, 8, 10,4};
+        DoublyLinkedList linkedList = new DoublyLinkedList();
 
         for (int i = 0; i < arrayLength; i++) {
             linkedList.insertAtEnd(expectedList[i]);
         }
-
-        linkedList.insertAfter(3, 4);
+        linkedList.insertAfter(10, 4);
         Assert.assertTrue(compareListItems(linkedList.headNode, updatedList));
     }
 
+
     @Test
     public void testSearchNode() {
-        SinglyLinkedList linkedList = new SinglyLinkedList();
+        DoublyLinkedList linkedList = new DoublyLinkedList();
         for (int i = 0; i < arrayLength; i++) {
             linkedList.insertAtEnd(expectedList[i]);
         }
@@ -83,7 +81,7 @@ public class SinglyLinkedListTest {
 
     @Test
     public void testDeleteAtHead() {
-        SinglyLinkedList linkedList = new SinglyLinkedList();
+        DoublyLinkedList linkedList = new DoublyLinkedList();
         for (int i = 0; i < arrayLength; i++) {
             linkedList.insertAtEnd(expectedList[i]);
         }
@@ -98,7 +96,7 @@ public class SinglyLinkedListTest {
 
     @Test
     public void testDeleteByValue() {
-        SinglyLinkedList linkedList = new SinglyLinkedList();
+        DoublyLinkedList linkedList = new DoublyLinkedList();
         for (int i = 0; i < arrayLength; i++) {
             linkedList.insertAtEnd(expectedList[i]);
         }
@@ -126,5 +124,4 @@ public class SinglyLinkedListTest {
         }
         return true;
     }
-
 }
