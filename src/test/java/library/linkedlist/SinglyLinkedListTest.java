@@ -110,6 +110,25 @@ public class SinglyLinkedListTest {
     }
 
 
+    @Test
+    public void testReverse() {
+        SinglyLinkedList linkedList = new SinglyLinkedList();
+        for (int i = 0; i < arrayLength; i++) {
+            linkedList.insertAtEnd(expectedList[i]);
+        }
+
+        int[] updatedList = new int[arrayLength];
+
+        for (int i = arrayLength - 1; i > -1; i--) {
+            updatedList[i] = expectedList[arrayLength - 1 - i];
+        }
+
+        linkedList.reverse();
+
+        Assert.assertTrue(compareListItems(linkedList.headNode, updatedList));
+    }
+
+
     private boolean compareListItems(Node<Integer> headNode) {
         return compareListItems(headNode, expectedList);
     }
