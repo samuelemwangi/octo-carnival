@@ -104,26 +104,20 @@ public class SinglyLinkedList {
 
     public void reverse(){
 
-        if(isEmpty()){
+        if(isEmpty())
             return;
-        }
 
-        if(headNode.nextNode == null){
-            return;
-        }
-
-        Node<Integer> currNode =  headNode;
         Node<Integer> prevNode =  null;
+        Node<Integer> currNode =  headNode;
         Node<Integer> nextNode =  null;
 
-        // [1, 2, 3,4,5]
 
         while (currNode != null){
             nextNode = currNode.nextNode;
-            currNode.nextNode = prevNode;
+            currNode.nextNode =  prevNode;
 
-            prevNode = currNode;
-            currNode = nextNode;
+            prevNode =  currNode;
+            currNode =  nextNode;
         }
 
         headNode = prevNode;

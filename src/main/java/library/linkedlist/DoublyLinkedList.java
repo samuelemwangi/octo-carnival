@@ -126,6 +126,28 @@ public class DoublyLinkedList {
         size--;
     }
 
+    public void reverse(){
+        if(isEmpty())
+            return;
+
+        Node<Integer> prevNode =  null;
+        Node<Integer> currentNode = headNode;
+        Node<Integer> nextNode =  null;
+
+        while (currentNode != null){
+            nextNode = currentNode.nextNode;
+            prevNode = currentNode.prevNode;
+
+            currentNode.prevNode =  nextNode;
+            currentNode.nextNode = prevNode;
+
+            prevNode =  currentNode;
+            currentNode =  nextNode;
+        }
+        headNode = prevNode;
+
+    }
+
 
     public void printList() {
         Node<Integer> currNode = headNode;

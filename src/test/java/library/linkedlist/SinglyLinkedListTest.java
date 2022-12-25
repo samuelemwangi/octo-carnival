@@ -122,9 +122,7 @@ public class SinglyLinkedListTest {
         for (int i = arrayLength - 1; i > -1; i--) {
             updatedList[i] = expectedList[arrayLength - 1 - i];
         }
-
         linkedList.reverse();
-
         Assert.assertTrue(compareListItems(linkedList.headNode, updatedList));
     }
 
