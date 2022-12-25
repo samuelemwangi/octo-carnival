@@ -124,6 +124,17 @@ public class DoublyLinkedListTest {
         Assert.assertTrue(compareListItems(linkedList.headNode, updatedList));
     }
 
+    @Test
+    public void detectLoop(){
+        DoublyLinkedList linkedList = new DoublyLinkedList();
+        for (int i = 0; i < arrayLength; i++) {
+            linkedList.insertAtEnd(expectedList[i]);
+        }
+        linkedList.addLoop();
+
+        Assert.assertTrue(linkedList.hasLoop());
+    }
+
 
     private boolean compareListItems(Node<Integer> headNode) {
         return compareListItems(headNode, expectedList);

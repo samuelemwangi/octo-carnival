@@ -148,6 +148,35 @@ public class DoublyLinkedList {
 
     }
 
+    public void addLoop(){
+        if(isEmpty())
+            return;
+
+        Node<Integer> currNode =  headNode;
+
+        while (currNode.nextNode != null){
+            currNode =  currNode.nextNode;
+        }
+
+        currNode.nextNode = headNode;
+    }
+
+    public boolean hasLoop(){
+
+        Node<Integer> slow = headNode;
+        Node<Integer> fast =  headNode;
+
+        while (slow != null && fast != null && fast.nextNode != null){
+            slow =  slow.nextNode;
+            fast = fast.nextNode.nextNode;
+            if(slow == fast)
+                return true;
+        }
+
+        return false;
+
+    }
+
 
     public void printList() {
         Node<Integer> currNode = headNode;

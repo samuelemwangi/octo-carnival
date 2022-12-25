@@ -120,7 +120,30 @@ public class SinglyLinkedList {
             currNode =  nextNode;
         }
 
+        currentTail =  headNode;
         headNode = prevNode;
+    }
+
+    public void addLoop(){
+        if(isEmpty())
+            return;
+
+        currentTail.nextNode = headNode;
+    }
+
+    public boolean hasLoop(){
+        Node<Integer> slow =  headNode;
+        Node<Integer> fast =  headNode;
+
+        while (slow != null && fast != null && fast.nextNode != null){
+            slow =  slow.nextNode;
+            fast =  fast.nextNode.nextNode;
+
+            if(slow == fast)
+                return true;
+        }
+
+        return false;
     }
 
     public void printList() {

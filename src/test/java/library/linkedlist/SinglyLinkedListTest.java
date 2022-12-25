@@ -127,6 +127,18 @@ public class SinglyLinkedListTest {
     }
 
 
+    @Test
+    public void detectLoop(){
+        SinglyLinkedList linkedList = new SinglyLinkedList();
+        for (int i = 0; i < arrayLength; i++) {
+            linkedList.insertAtEnd(expectedList[i]);
+        }
+        linkedList.addLoop();
+
+        Assert.assertTrue(linkedList.hasLoop());
+    }
+
+
     private boolean compareListItems(Node<Integer> headNode) {
         return compareListItems(headNode, expectedList);
     }
