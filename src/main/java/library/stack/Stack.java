@@ -3,7 +3,7 @@ package library.stack;
 public class Stack<T> {
     private final int maxSize;
     private int top;
-    private T[] array;
+    private final T[] array;
 
 
     @SuppressWarnings("unchecked")
@@ -28,6 +28,21 @@ public class Stack<T> {
         if(isEmpty())
             return null;
         return array[top];
+    }
+
+    public void push(T item){
+        if(isFull()){
+            throw new StackOverflowError();
+        }
+        array[++top] =  item;
+    }
+
+    public T pop(){
+        if(isEmpty()){
+            // throw new EmptyStackException();
+            return null;
+        }
+        return array[top--];
     }
 
 }
