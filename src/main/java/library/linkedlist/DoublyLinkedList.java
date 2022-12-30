@@ -222,6 +222,41 @@ public class DoublyLinkedList {
         return head;
     }
 
+    public void removeNthNodeFromEnd(int target){
+        if(headNode == null || target <= 0)
+            return;
+
+        Node<Integer> currNode =  headNode;
+        int size = 0;
+        while (currNode != null){
+            size++;
+            currNode = currNode.nextNode;
+        }
+
+        if(size == target){
+            headNode = headNode.nextNode;
+            headNode.prevNode = null;
+            return;
+        }
+
+        currNode =  headNode;
+        Node<Integer> prevNode =  null;
+        int trackLength = 0;
+
+        while (trackLength < size - target){
+            trackLength++;
+            prevNode =  currNode;
+            currNode = currNode.nextNode;
+        }
+
+        prevNode.nextNode =  currNode.nextNode;
+
+        if(prevNode.nextNode != null){
+            prevNode.nextNode.prevNode = prevNode;
+        }
+
+    }
+
 
     public void printList() {
         Node<Integer> currNode = headNode;

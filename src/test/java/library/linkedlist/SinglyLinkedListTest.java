@@ -164,6 +164,20 @@ public class SinglyLinkedListTest {
         Assert.assertTrue(compareListItems(linkedList.headNode, result));
     }
 
+    @Test
+    public void testRemoveNthNodeFromEnd(){
+        SinglyLinkedList linkedList =  new SinglyLinkedList();
+        int[] arr = new int[]{1,2,3};
+        int[] result = new int[]{1,2};
+
+        for(int i : arr){
+            linkedList.insertAtEnd(i);
+        }
+        linkedList.removeNthNodeFromEnd(1);
+
+        Assert.assertTrue(compareListItems(linkedList.headNode,result));
+    }
+
 
     private boolean compareListItems(Node<Integer> headNode) {
         return compareListItems(headNode, expectedList);

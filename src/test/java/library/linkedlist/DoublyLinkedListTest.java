@@ -161,6 +161,21 @@ public class DoublyLinkedListTest {
     }
 
 
+    @Test
+    public void testRemoveNthNodeFromEnd(){
+        DoublyLinkedList linkedList =  new DoublyLinkedList();
+        int[] arr = new int[]{1,2,3};
+        int[] result = new int[]{1,2};
+
+        for(int i : arr){
+            linkedList.insertAtEnd(i);
+        }
+        linkedList.removeNthNodeFromEnd(1);
+
+        Assert.assertTrue(compareListItems(linkedList.headNode,result));
+    }
+
+
     private boolean compareListItems(Node<Integer> headNode) {
         return compareListItems(headNode, expectedList);
     }

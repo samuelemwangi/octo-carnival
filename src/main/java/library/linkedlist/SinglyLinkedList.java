@@ -211,6 +211,39 @@ public class SinglyLinkedList {
 
     }
 
+
+    public void removeNthNodeFromEnd(int target){
+        if(headNode == null || target <= 0)
+            return;
+
+        int size =  0;
+        Node<Integer> currNode =  headNode;
+
+        while (currNode != null){
+            size++;
+            currNode = currNode.nextNode;
+        }
+
+
+        if(size == target){
+            headNode = headNode.nextNode;
+            return;
+        }
+
+        currNode =  headNode;
+        Node<Integer> prevNode = null;
+        int trackLength = 0;
+
+        while(trackLength < size - target){
+            trackLength++;
+            prevNode = currNode;
+            currNode =  currNode.nextNode;
+        }
+
+        prevNode.nextNode = currNode.nextNode;
+
+    }
+
     public void printList() {
         Node<Integer> currNode = headNode;
         while (currNode != null) {
