@@ -5,6 +5,12 @@ public class Stack<T> {
     private int top;
     private final T[] array;
 
+    @SuppressWarnings("unchecked")
+    public Stack(){
+        maxSize =  4096;
+        top =  -1;
+        array = (T[]) new Object[maxSize];
+    }
 
     @SuppressWarnings("unchecked")
     public Stack(int maxSize){
@@ -39,7 +45,6 @@ public class Stack<T> {
 
     public T pop(){
         if(isEmpty()){
-            // throw new EmptyStackException();
             return null;
         }
         return array[top--];
