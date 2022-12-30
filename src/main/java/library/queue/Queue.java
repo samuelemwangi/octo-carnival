@@ -14,13 +14,14 @@ public class Queue<T> {
         tail = -1;
         queue = (T[]) new Object[maxSize];
     }
-    public boolean isEmpty(){
-        return size == 0;
-    }
 
     public int size(){
         return size;
     }
+    public boolean isEmpty(){
+        return size == 0;
+    }
+
     public void enqueue(T item){
          queue[++head] = item;
          if(size == 0){
