@@ -3,11 +3,11 @@ package library.queue;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class QueueV2Test {
+public class LinkedQueueTest {
 
     @Test
     public void testIsEmpty() {
-        QueueV2<Integer> queue = new QueueV2<>();
+        LinkedQueue<Integer> queue = new LinkedQueue<>();
 
         Assert.assertTrue(queue.isEmpty());
     }
@@ -15,7 +15,7 @@ public class QueueV2Test {
     @Test
     public void testEnqueue(){
         int item = 10;
-        QueueV2<Integer> queue = new QueueV2<>();
+        LinkedQueue<Integer> queue = new LinkedQueue<>();
         queue.enqueue(10);
 
         Assert.assertEquals(queue.peek(), item);
@@ -24,7 +24,7 @@ public class QueueV2Test {
     @Test
     public void testDequeue(){
         int item = 10;
-        QueueV2<Integer> queue = new QueueV2<>();
+        LinkedQueue<Integer> queue = new LinkedQueue<>();
         queue.enqueue(10);
         queue.enqueue(20);
         Assert.assertEquals(queue.peek(), item);

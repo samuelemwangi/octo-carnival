@@ -1,19 +1,19 @@
 package library.stack;
 
-public class Stack<T> {
+public class ArrayStack<T> {
     private final int maxSize;
     private int top;
     private final T[] array;
 
     @SuppressWarnings("unchecked")
-    public Stack(){
+    public ArrayStack(){
         maxSize =  4096;
         top =  -1;
         array = (T[]) new Object[maxSize];
     }
 
     @SuppressWarnings("unchecked")
-    public Stack(int maxSize){
+    public ArrayStack(int maxSize){
         this.maxSize =  maxSize;
         top =  -1;
         array = (T[]) new Object[maxSize];

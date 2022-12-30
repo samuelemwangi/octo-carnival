@@ -2,11 +2,11 @@ package library.queue;
 
 import java.util.LinkedList;
 
-public class QueueV2<T> {
+public class LinkedQueue<T> {
     private int size;
     private final LinkedList<T> queue;
 
-    public QueueV2(){
+    public LinkedQueue(){
         queue = new LinkedList<>();
         size = 0;
     }

@@ -2,12 +2,12 @@ package library.stack;
 
 import java.util.LinkedList;
 
-public class StackV2<T> {
+public class LinkedStack<T> {
     private final LinkedList<T> stack;
 
     private int size;
 
-    public StackV2(){
+    public LinkedStack(){
         stack = new LinkedList<>();
         size = 0;
     }

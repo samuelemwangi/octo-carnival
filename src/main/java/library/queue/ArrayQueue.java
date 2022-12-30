@@ -1,13 +1,13 @@
 package library.queue;
 
-public class Queue<T> {
+public class ArrayQueue<T> {
     private int size;
     private final T[] queue;
     private int head;
     private int tail;
 
     @SuppressWarnings("unchecked")
-    public Queue(){
+    public ArrayQueue(){
         int maxSize = 4096;
         size = 0;
         head = -1;
