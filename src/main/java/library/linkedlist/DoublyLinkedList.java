@@ -177,6 +177,51 @@ public class DoublyLinkedList {
 
     }
 
+    public Node<Integer> mergeLists(Node<Integer> list1, Node<Integer> list2){
+        if(list1 == null)
+            return list2;
+        if(list2 == null)
+            return list1;
+
+        Node<Integer> head = new Node<>();
+        
+        if(list1.data <= list2.data){
+            head.data =  list1.data;
+            list1 = list1.nextNode;
+        }else{
+            head.data = list2.data;
+            list2 = list2.nextNode;
+        }
+
+        Node<Integer> currNode = head;
+
+        while (list1 != null && list2 != null){
+            Node<Integer> newNode =  new Node<>();
+            if(list1.data <= list2.data){
+                newNode.data = list1.data;
+                list1 = list1.nextNode;
+            }else{
+                newNode.data = list2.data;
+                list2 = list2.nextNode;
+            }
+            currNode.nextNode = newNode;
+            newNode.prevNode = currNode;
+
+            currNode = currNode.nextNode;
+        }
+
+        if(list1 != null){
+            currNode.nextNode = list1;
+            list1.prevNode = currNode;
+        }
+
+        if(list2 != null){
+            currNode.nextNode = list2;
+            list2.prevNode = currNode;
+        }
+        return head;
+    }
+
 
     public void printList() {
         Node<Integer> currNode = headNode;

@@ -91,8 +91,8 @@ public class SinglyLinkedList {
 
         Node<Integer> currNode = headNode;
 
-        while (currNode.nextNode != null){
-            if(currNode.nextNode.data.equals(data)){
+        while (currNode.nextNode != null) {
+            if (currNode.nextNode.data.equals(data)) {
                 currNode.nextNode = currNode.nextNode.nextNode;
                 size--;
                 return;
@@ -102,48 +102,113 @@ public class SinglyLinkedList {
 
     }
 
-    public void reverse(){
+    public void reverse() {
 
-        if(isEmpty())
+        if (isEmpty())
             return;
 
-        Node<Integer> prevNode =  null;
-        Node<Integer> currNode =  headNode;
-        Node<Integer> nextNode =  null;
+        Node<Integer> prevNode = null;
+        Node<Integer> currNode = headNode;
+        Node<Integer> nextNode = null;
 
 
-        while (currNode != null){
+        while (currNode != null) {
             nextNode = currNode.nextNode;
-            currNode.nextNode =  prevNode;
+            currNode.nextNode = prevNode;
 
-            prevNode =  currNode;
-            currNode =  nextNode;
+            prevNode = currNode;
+            currNode = nextNode;
         }
 
-        currentTail =  headNode;
+        currentTail = headNode;
         headNode = prevNode;
     }
 
-    public void addLoop(){
-        if(isEmpty())
+    public void addLoop() {
+        if (isEmpty())
             return;
 
         currentTail.nextNode = headNode;
     }
 
-    public boolean hasLoop(){
-        Node<Integer> slow =  headNode;
-        Node<Integer> fast =  headNode;
+    public boolean hasLoop() {
+        Node<Integer> slow = headNode;
+        Node<Integer> fast = headNode;
 
-        while (slow != null && fast != null && fast.nextNode != null){
-            slow =  slow.nextNode;
-            fast =  fast.nextNode.nextNode;
+        while (slow != null && fast != null && fast.nextNode != null) {
+            slow = slow.nextNode;
+            fast = fast.nextNode.nextNode;
 
-            if(slow == fast)
+            if (slow == fast)
                 return true;
         }
 
         return false;
+    }
+
+
+    public Node<Integer> mergeLists(Node<Integer> list1, Node<Integer> list2) {
+        if (list1 == null) {
+            return list2;
+        }
+
+        if (list2 == null) {
+            return list1;
+        }
+
+        Node<Integer> head = new Node<>();
+
+
+        if (list1.data <= list2.data) {
+            head.data = list1.data;
+            list1 = list1.nextNode;
+        } else {
+            head.data = list2.data;
+            list2 = list2.nextNode;
+        }
+
+        Node<Integer> currNode = head;
+
+        while (list1 != null && list2 != null) {
+            Node<Integer> newNode = new Node<>();
+            if (list1.data <= list2.data) {
+                newNode.data = list1.data;
+                list1 = list1.nextNode;
+            } else {
+                newNode.data = list2.data;
+                ;
+                list2 = list2.nextNode;
+            }
+
+            currNode.nextNode = newNode;
+            currNode = currNode.nextNode;
+        }
+
+        if (list1 != null) {
+
+            while (list1 != null) {
+                Node<Integer> newNode = new Node<>();
+                newNode.data = list1.data;
+
+                list1 = list1.nextNode;
+
+                currNode.nextNode = newNode;
+                currNode = currNode.nextNode;
+            }
+
+        } else {
+            while (list2 != null) {
+                Node<Integer> newNode = new Node<>();
+                newNode.data = list2.data;
+
+                list2 = list2.nextNode;
+
+                currNode.nextNode = newNode;
+                currNode = currNode.nextNode;
+            }
+        }
+        return head;
+
     }
 
     public void printList() {

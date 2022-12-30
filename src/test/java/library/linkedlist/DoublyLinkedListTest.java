@@ -125,7 +125,7 @@ public class DoublyLinkedListTest {
     }
 
     @Test
-    public void detectLoop(){
+    public void testDetectLoop(){
         DoublyLinkedList linkedList = new DoublyLinkedList();
         for (int i = 0; i < arrayLength; i++) {
             linkedList.insertAtEnd(expectedList[i]);
@@ -133,6 +133,31 @@ public class DoublyLinkedListTest {
         linkedList.addLoop();
 
         Assert.assertTrue(linkedList.hasLoop());
+    }
+
+    @Test
+    public void testMergeSortedList(){
+        DoublyLinkedList linkedList1 =  new DoublyLinkedList();
+        DoublyLinkedList linkedList2 =  new DoublyLinkedList();
+
+        int[] arr1 = new int[]{1,2,3};
+        int[] arr2 = new int[]{1,4};
+
+        int[] result =  new int[]{1,1,2,3,4};
+
+        for (int i : arr1) {
+            linkedList1.insertAtEnd(i);
+        }
+
+        for(int j : arr2){
+            linkedList2.insertAtEnd(j);
+        }
+
+        DoublyLinkedList linkedList =  new DoublyLinkedList();
+
+        linkedList.mergeLists(linkedList1.headNode,linkedList2.headNode);
+
+        Assert.assertTrue(compareListItems(linkedList.headNode, result));
     }
 
 

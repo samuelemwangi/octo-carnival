@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.LinkedList;
 
 public class SinglyLinkedListTest {
     private static final int[] expectedList = new int[]{1, 2, 3, 5, 6, 7, 8, 10};
@@ -128,7 +129,7 @@ public class SinglyLinkedListTest {
 
 
     @Test
-    public void detectLoop(){
+    public void testDetectLoop(){
         SinglyLinkedList linkedList = new SinglyLinkedList();
         for (int i = 0; i < arrayLength; i++) {
             linkedList.insertAtEnd(expectedList[i]);
@@ -136,6 +137,31 @@ public class SinglyLinkedListTest {
         linkedList.addLoop();
 
         Assert.assertTrue(linkedList.hasLoop());
+    }
+
+    @Test
+    public void testMergeSortedList(){
+        SinglyLinkedList linkedList1 =  new SinglyLinkedList();
+        SinglyLinkedList linkedList2 =  new SinglyLinkedList();
+
+        int[] arr1 = new int[]{1,2,3};
+        int[] arr2 = new int[]{1,4};
+
+        int[] result =  new int[]{1,1,2,3,4};
+
+        for (int i : arr1) {
+            linkedList1.insertAtEnd(i);
+        }
+
+        for(int j : arr2){
+            linkedList2.insertAtEnd(j);
+        }
+
+        SinglyLinkedList linkedList =  new SinglyLinkedList();
+
+        linkedList.mergeLists(linkedList1.headNode,linkedList2.headNode);
+
+        Assert.assertTrue(compareListItems(linkedList.headNode, result));
     }
 
 
