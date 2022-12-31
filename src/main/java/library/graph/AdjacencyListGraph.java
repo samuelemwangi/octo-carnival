@@ -126,6 +126,29 @@ public class AdjacencyListGraph {
 
     }
 
+
+    public boolean pathExists(int start, int dest) {
+        Stack<Integer> stack = new Stack<>();
+        boolean[] tracker = new boolean[vertices];
+
+        stack.push(start);
+        tracker[start] = true;
+
+        while (!stack.empty()) {
+            int item = stack.pop();
+            for (int neighbor : graph[item]) {
+                if (neighbor == dest) {
+                    return true;
+                }
+                if (!tracker[neighbor]) {
+                    stack.push(neighbor);
+                    tracker[neighbor] = true;
+                }
+            }
+        }
+        return false;
+    }
+
     public String toString() {
         StringBuilder s = new StringBuilder();
 
