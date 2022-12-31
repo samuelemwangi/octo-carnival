@@ -129,5 +129,15 @@ public class AdjacencyListGraphTest {
 
         Assert.assertTrue(graph.pathExists(4, 5));
         Assert.assertFalse(graph.pathExists(1,4));
+
+        Assert.assertFalse(graph.pathExists(0,0));
+
+        graph.addEdge(0,0);
+        Assert.assertTrue(graph.pathExists(0,0));
+
+
+        graph.addEdge(1,0);
+        graph.addEdge(3,4);
+        Assert.assertTrue(graph.pathExists(1,4));
     }
 }
