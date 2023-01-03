@@ -42,7 +42,11 @@ public class ListNodeGraphTest {
 
         Assert.assertFalse(graph.isEmpty());
         Assert.assertEquals(graph.vertices(), 3);
-        String expectedGraph =  "0->120\n1->20\n2->\n";
+        graph.removeEdge(0,0);
+        String expectedGraph =  "0->12\n1->20\n2->\n";
+        Assert.assertEquals(graph.toString(), expectedGraph);
+        graph.removeEdge(1, 0);
+        expectedGraph = "0->12\n1->2\n2->\n";
         Assert.assertEquals(graph.toString(), expectedGraph);
     }
 }
