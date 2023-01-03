@@ -30,35 +30,103 @@ public class ListNodeGraph<T> {
         }
 
         Node<T> sourceNode = searchNodeBFS(source);
-        if (sourceNode == null) {
-            // No islands allowed
+        Node<T> destNode = searchNodeBFS(destination);
+
+        if (sourceNode == null && destNode == null) {
+            //  Add an island
+            Node<T> islandSource = new Node<>(source);
+            Node<T> islandDest = new Node<>(destination);
+
+            islandSource.neighbors.add(islandDest);
+            vertices += 2;
             return;
         }
 
-        Node<T> destNode = searchNodeBFS(destination);
 
-        if (destNode == null) {
+        if (sourceNode != null && destNode == null) {
             sourceNode.neighbors.add(new Node<>(destination));
             vertices++;
-        } else {
-            sourceNode.neighbors.add(destNode);
+            return;
         }
+
+        if (sourceNode == null) {
+            destNode.neighbors.add(new Node<>(source));
+            vertices++;
+            return;
+        }
+
+        sourceNode.neighbors.add(destNode);
+
     }
 
 
-    public void removeEdge(T source, T destination){
-        if(isEmpty())
+    public void removeEdge(T source, T destination) {
+        if (isEmpty())
             return;
-        Node<T> sourceNode =  searchNodeBFS(source);
-        if(sourceNode == null)
+        Node<T> sourceNode = searchNodeBFS(source);
+        if (sourceNode == null)
             return;
 
-        Node<T> destNode =  searchNodeBFS(destination);
-        if(destNode == null)
+        Node<T> destNode = searchNodeBFS(destination);
+        if (destNode == null)
             return;
 
         sourceNode.neighbors.remove(destNode);
 
+    }
+
+    public boolean detectCycle() {
+        Queue<Node<T>> queue = new LinkedList<>();
+        HashSet<Node<T>> tracker = new HashSet<>();
+        queue.offer(sourceNode);
+        tracker.add(sourceNode);
+
+        while (queue.peek() != null) {
+            Node<T> item = queue.poll();
+            for (Node<T> neighbor : item.neighbors) {
+                if (tracker.contains(neighbor)) {
+                    return true;
+                } else {
+                    queue.offer(neighbor);
+                    tracker.add(neighbor);
+                }
+            }
+
+        }
+        return false;
+    }
+
+
+    public boolean pathExists(T source, T dest) {
+        Queue<Node<T>> queue = new LinkedList<>();
+        HashSet<Node<T>> tracker = new HashSet<>();
+
+        Node<T> sourceNode = searchNodeBFS(source);
+        if (sourceNode == null)
+            return false;
+        Node<T> destNode = searchNodeBFS(dest);
+        if (destNode == null)
+            return false;
+
+        queue.offer(sourceNode);
+        tracker.add(sourceNode);
+
+        while (queue.peek() != null) {
+            Node<T> item = queue.poll();
+
+            for (Node<T> neighbor : item.neighbors) {
+                if (sourceNode.data.equals(neighbor.data)) {
+                    return true;
+                }
+
+                if (!tracker.contains(neighbor)) {
+                    queue.offer(neighbor);
+                    tracker.add(neighbor);
+                }
+            }
+        }
+
+        return false;
     }
 
 
@@ -85,28 +153,74 @@ public class ListNodeGraph<T> {
     }
 
 
-    public String toString(){
-        StringBuilder  s = new StringBuilder();
+    public ListNodeGraph<T> cloneGraph(){
+        ListNodeGraph<T> newGraph =  new ListNodeGraph<>();
+        if(isEmpty())
+            return null;
 
-        Node<T> currNode =  sourceNode;
+        Node<T> clonedSourceNode =  new Node<>(sourceNode.data);
+        newGraph.sourceNode = clonedSourceNode;
 
-        while (currNode != null){
-            s.append(currNode.data).append("->");
+        Queue<Node<T>> queue = new LinkedList<>();
+        HashSet<Node<T>> tracker =  new HashSet<>();
+        HashSet<Node<T>> cloneTracker = new HashSet<>();
 
-            Queue<Node<T>> queue =  new LinkedList<>();
-            HashSet<Node<T>> tracker =  new HashSet<>();
-            tracker.add(currNode);
-            for (Node<T> neighbor : currNode.neighbors){
-                s.append(neighbor.data);
-                if(!tracker.contains(neighbor))
+        queue.offer(sourceNode);
+        queue.offer(clonedSourceNode);
+        tracker.add(sourceNode);
+        cloneTracker.add(clonedSourceNode);
+
+
+        while (queue.peek() != null){
+            Node<T> item =  queue.poll();
+            Node<T> clonedItem =  queue.poll();
+
+            for (Node<T> neighbor : item.neighbors){
+                if(tracker.contains(neighbor)){
+                    for(Node<T> searchedNode : cloneTracker){
+                        if(searchedNode.data.equals(neighbor.data)){
+                          clonedItem.neighbors.add(searchedNode);
+                          break;
+                        }
+                    }
+                }else{
+                    Node<T> clonedNeighbor =  new Node<>(neighbor.data);
                     queue.offer(neighbor);
+                    queue.offer(clonedNeighbor);
+                    tracker.add(neighbor);
+                    cloneTracker.add(clonedNeighbor);
+
+                    clonedItem.neighbors.add(clonedNeighbor);
+                }
             }
-            s.append("\n");
-            currNode = queue.poll();
         }
 
-        return s.toString();
+        return newGraph;
     }
 
+    public String toString() {
+        Queue<Node<T>> queue = new LinkedList<>();
+        HashSet<Node<T>> tracker = new HashSet<>();
+        StringBuilder s = new StringBuilder();
 
+        if (sourceNode == null)
+            return "";
+
+        queue.offer(sourceNode);
+        tracker.add(sourceNode);
+
+        while (queue.peek() != null) {
+            Node<T> item = queue.poll();
+            s.append(item.data).append("->");
+            for (Node<T> neighbor : item.neighbors) {
+                s.append(neighbor.data);
+                if (!tracker.contains(neighbor)) {
+                    queue.offer(neighbor);
+                    tracker.add(neighbor);
+                }
+            }
+            s.append("\n");
+        }
+        return s.toString();
+    }
 }
