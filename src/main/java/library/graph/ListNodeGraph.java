@@ -1,5 +1,6 @@
 package library.graph;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -162,13 +163,12 @@ public class ListNodeGraph<T> {
         newGraph.sourceNode = clonedSourceNode;
 
         Queue<Node<T>> queue = new LinkedList<>();
-        HashSet<Node<T>> tracker =  new HashSet<>();
-        HashSet<Node<T>> cloneTracker = new HashSet<>();
+        HashMap<T, Node<T>> tracker =  new HashMap<>();
 
         queue.offer(sourceNode);
         queue.offer(clonedSourceNode);
-        tracker.add(sourceNode);
-        cloneTracker.add(clonedSourceNode);
+
+        tracker.put(sourceNode.data, clonedSourceNode);
 
 
         while (queue.peek() != null){
@@ -176,19 +176,13 @@ public class ListNodeGraph<T> {
             Node<T> clonedItem =  queue.poll();
 
             for (Node<T> neighbor : item.neighbors){
-                if(tracker.contains(neighbor)){
-                    for(Node<T> searchedNode : cloneTracker){
-                        if(searchedNode.data.equals(neighbor.data)){
-                          clonedItem.neighbors.add(searchedNode);
-                          break;
-                        }
-                    }
+                if(tracker.containsKey(neighbor.data)){
+                    clonedItem.neighbors.add(tracker.get(neighbor.data));
                 }else{
                     Node<T> clonedNeighbor =  new Node<>(neighbor.data);
                     queue.offer(neighbor);
                     queue.offer(clonedNeighbor);
-                    tracker.add(neighbor);
-                    cloneTracker.add(clonedNeighbor);
+                    tracker.put(neighbor.data, clonedNeighbor);
 
                     clonedItem.neighbors.add(clonedNeighbor);
                 }
