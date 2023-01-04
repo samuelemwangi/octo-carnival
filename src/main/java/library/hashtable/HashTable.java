@@ -35,14 +35,16 @@ public class HashTable<K, V> {
         int hashIndex = getIndex(key);
         HashEntry<K, V> newEntry = new HashEntry<>(key, value);
         if (bucket[hashIndex] == null) {
+            newEntry.currentTail =  newEntry;
             bucket[hashIndex] = newEntry;
+
         } else {
             HashEntry<K, V> head = bucket[hashIndex];
+            HashEntry<K,V> currentTail =  head.currentTail;
 
-            while (head.next != null) {
-                head = head.next;
-            }
-            head.next = newEntry;
+
+            currentTail.next = newEntry;
+            head.currentTail = currentTail.next;
             // check threshHold and expand if necessary
             // expandSize();
         }

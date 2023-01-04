@@ -6,6 +6,7 @@ public class HashEntry<K, V> {
 
     // for chaining
     HashEntry<K, V> next;
+    HashEntry<K, V> currentTail;
 
     public HashEntry(K key, V value) {
         this.key = key;

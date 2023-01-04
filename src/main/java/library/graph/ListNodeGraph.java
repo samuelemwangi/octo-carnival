@@ -3,15 +3,16 @@ package library.graph;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 
 public class ListNodeGraph<T> {
     private int vertices;
-    public Node<T> sourceNode;
+    public final HashMap<T, Node<T>> sourceNodeTracker;
 
     public ListNodeGraph() {
-        sourceNode = null;
         vertices = 0;
+        sourceNodeTracker = new HashMap<>();
     }
 
     public boolean isEmpty() {
@@ -24,9 +25,15 @@ public class ListNodeGraph<T> {
 
     public void addEdge(T source, T destination) {
         if (isEmpty()) {
-            this.sourceNode = new Node<>(source);
-            this.sourceNode.neighbors.add(new Node<>(destination));
-            vertices = 2;
+            Node<T> sourceNode = new Node<>(source);
+            if(source.equals(destination)) {
+                sourceNode.neighbors.add(sourceNode);
+                vertices = 1;
+            }else {
+                sourceNode.neighbors.add(new Node<>(destination));
+                vertices = 2;
+            }
+            sourceNodeTracker.put(source, sourceNode);
             return;
         }
 
@@ -37,6 +44,8 @@ public class ListNodeGraph<T> {
             //  Add an island
             Node<T> islandSource = new Node<>(source);
             Node<T> islandDest = new Node<>(destination);
+
+            sourceNodeTracker.put(source, islandSource);
 
             islandSource.neighbors.add(islandDest);
             vertices += 2;
@@ -51,7 +60,9 @@ public class ListNodeGraph<T> {
         }
 
         if (sourceNode == null) {
-            destNode.neighbors.add(new Node<>(source));
+            Node<T> externalSourceNode =  new Node<>(source);
+            externalSourceNode.neighbors.add(destNode);
+            sourceNodeTracker.put(source, externalSourceNode);
             vertices++;
             return;
         }
@@ -76,9 +87,19 @@ public class ListNodeGraph<T> {
 
     }
 
-    public boolean detectCycle() {
+    public boolean detectCycle(){
+        for(Map.Entry<T, Node<T>> entry : sourceNodeTracker.entrySet()){
+            if(detectCycle(entry.getValue()))
+                return true;
+        }
+
+        return false;
+    }
+
+    public boolean detectCycle(Node<T> sourceNode) {
         Queue<Node<T>> queue = new LinkedList<>();
         HashSet<Node<T>> tracker = new HashSet<>();
+
         queue.offer(sourceNode);
         tracker.add(sourceNode);
 
@@ -106,17 +127,19 @@ public class ListNodeGraph<T> {
         if (sourceNode == null)
             return false;
         Node<T> destNode = searchNodeBFS(dest);
+
         if (destNode == null)
             return false;
 
         queue.offer(sourceNode);
         tracker.add(sourceNode);
 
+
         while (queue.peek() != null) {
             Node<T> item = queue.poll();
 
             for (Node<T> neighbor : item.neighbors) {
-                if (sourceNode.data.equals(neighbor.data)) {
+                if (neighbor.data.equals(dest)) {
                     return true;
                 }
 
@@ -130,8 +153,18 @@ public class ListNodeGraph<T> {
         return false;
     }
 
+    public Node<T> searchNodeBFS(T nodeValue){
 
-    public Node<T> searchNodeBFS(T nodeValue) {
+        for(Map.Entry<T, Node<T>> entry : sourceNodeTracker.entrySet()){
+            Node<T> targetNode =  searchNodeBFS(nodeValue, entry.getValue());
+            if(targetNode != null)
+                return targetNode;
+        }
+
+        return null;
+    }
+
+    public Node<T> searchNodeBFS(T nodeValue, Node<T> sourceNode) {
         Queue<Node<T>> queue = new LinkedList<>();
         HashSet<Node<T>> tracker = new HashSet<>();
         queue.offer(sourceNode);
@@ -154,13 +187,12 @@ public class ListNodeGraph<T> {
     }
 
 
-    public ListNodeGraph<T> cloneGraph(){
+    public ListNodeGraph<T> cloneGraph(Node<T> sourceNode){
         ListNodeGraph<T> newGraph =  new ListNodeGraph<>();
         if(isEmpty())
             return null;
 
         Node<T> clonedSourceNode =  new Node<>(sourceNode.data);
-        newGraph.sourceNode = clonedSourceNode;
 
         Queue<Node<T>> queue = new LinkedList<>();
         HashMap<T, Node<T>> tracker =  new HashMap<>();
@@ -174,6 +206,10 @@ public class ListNodeGraph<T> {
         while (queue.peek() != null){
             Node<T> item =  queue.poll();
             Node<T> clonedItem =  queue.poll();
+
+            if(sourceNodeTracker.containsKey(item.data))
+                newGraph.sourceNodeTracker.put(item.data, clonedItem);
+
 
             for (Node<T> neighbor : item.neighbors){
                 if(tracker.containsKey(neighbor.data)){
@@ -192,7 +228,17 @@ public class ListNodeGraph<T> {
         return newGraph;
     }
 
-    public String toString() {
+    public String toString(){
+        StringBuilder s =  new StringBuilder();
+        for(Map.Entry<T, Node<T>> entry : sourceNodeTracker.entrySet()){
+            s.append(toString(entry.getValue()));
+            s.append("\n\n");
+        }
+
+        return s.toString();
+    }
+
+    public String toString(Node<T> sourceNode) {
         Queue<Node<T>> queue = new LinkedList<>();
         HashSet<Node<T>> tracker = new HashSet<>();
         StringBuilder s = new StringBuilder();
