@@ -24,7 +24,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
             Node<T> leftChild = currNode.leftChild;
             Node<T> rightChild = currNode.rightChild;
 
-            if (currNode.data.compareTo(value) > 0) {
+            if (currNode.data.compareTo(value) >= 0) {
                 if (leftChild == null) {
                     currNode.leftChild = newNode;
                     return;
@@ -40,5 +40,23 @@ public class BinarySearchTree<T extends Comparable<T>> {
                 currNode = currNode.rightChild;
             }
         }
+    }
+
+    public void insertRecursive(T value) {
+        this.root = insertRecursive(value, root);
+    }
+
+    public Node<T> insertRecursive(T value, Node<T> currNode) {
+        if (currNode == null)
+            return new Node<>(value);
+
+        if (currNode.data.compareTo(value) > 0) {
+            currNode.leftChild = insertRecursive(value, currNode.leftChild);
+        } else if (currNode.data.compareTo(value) < 0) {
+            currNode.rightChild = insertRecursive(value, currNode.rightChild);
+        } else {
+            return currNode;
+        }
+        return currNode;
     }
 }

@@ -40,4 +40,31 @@ public class BinarySearchTreeTest {
         Assert.assertEquals(bst3.root.leftChild.data, 40F);
         Assert.assertEquals(bst3.root.rightChild.data, 40.11F);
     }
+
+    @Test
+     public void testInsertRecursive(){
+         BinarySearchTree<Integer> bst1 = new BinarySearchTree<>();
+         bst1.insertRecursive(23);
+         Assert.assertFalse(bst1.isEmpty());
+         Assert.assertEquals(bst1.root.data, 23);
+         Assert.assertNull(bst1.root.leftChild);
+         Assert.assertNull(bst1.root.rightChild);
+
+         BinarySearchTree<Character> bst2 =  new BinarySearchTree<>();
+         bst2.insertRecursive('c');
+         Assert.assertFalse(bst2.isEmpty());
+         Assert.assertEquals(bst2.root.data, 'c');
+         Assert.assertNull(bst2.root.leftChild);
+         Assert.assertNull(bst2.root.rightChild);
+
+         BinarySearchTree<Float> bst3 =  new BinarySearchTree<>();
+         bst3.insertRecursive(40.1F);
+         bst3.insertRecursive(40F);
+         bst3.insertRecursive(40.11F);
+
+         Assert.assertFalse(bst3.isEmpty());
+         Assert.assertEquals(bst3.root.data, 40.1F);
+         Assert.assertEquals(bst3.root.leftChild.data, 40F);
+         Assert.assertEquals(bst3.root.rightChild.data, 40.11F);
+     }
 }
