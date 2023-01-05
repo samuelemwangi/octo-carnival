@@ -1,5 +1,7 @@
 package library.tree;
 
+import java.util.LinkedList;
+
 public class BinarySearchTree<T extends Comparable<T>> {
     public Node<T> root;
 
@@ -97,6 +99,44 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
     }
 
+    public void preTraversal(LinkedList<T> list) {
+        preTraversal(list, this.root);
+    }
+
+    public void preTraversal(LinkedList<T> list, Node<T> currNode) {
+        if (currNode == null)
+            return;
+        list.addLast(currNode.data);
+        preTraversal(list, currNode.leftChild);
+        preTraversal(list, currNode.rightChild);
+    }
+
+    public void inOrderTraversal(LinkedList<T> list){
+        inOrderTraversal(list, this.root);
+    }
+
+    public void inOrderTraversal(LinkedList<T> list, Node<T> currNode){
+        if(currNode == null)
+            return;
+
+        inOrderTraversal(list, currNode.leftChild);
+        list.addLast(currNode.data);
+        inOrderTraversal(list, currNode.rightChild);
+    }
+
+    public void postOrderTraversal(LinkedList<T> list){
+        postOrderTraversal(list, this.root);
+    }
+
+    public void postOrderTraversal(LinkedList<T> list, Node<T> currNode){
+        if(currNode == null)
+            return;
+
+        postOrderTraversal(list, currNode.leftChild);
+        postOrderTraversal(list, currNode.rightChild);
+        list.addLast(currNode.data);
+    }
+
     public void deleteNode(T value) {
 
         Node<T> currNode = this.root;
@@ -126,46 +166,46 @@ public class BinarySearchTree<T extends Comparable<T>> {
                 return;
             }
 
-            if(parentNode.data.compareTo(currNode.data) > 0){
+            if (parentNode.data.compareTo(currNode.data) > 0) {
                 parentNode.leftChild = null;
-            }else {
+            } else {
                 parentNode.rightChild = null;
             }
             return;
         }
 
-        if(currNode.rightChild == null){
-            if(root.data.equals(currNode.data)){
+        if (currNode.rightChild == null) {
+            if (root.data.equals(currNode.data)) {
                 this.root = currNode.leftChild;
                 return;
             }
 
-            if(parentNode.data.compareTo(currNode.data) > 0){
+            if (parentNode.data.compareTo(currNode.data) > 0) {
                 // Assuming left side of the bst
-                parentNode.leftChild =  currNode.leftChild;
-            }else{
+                parentNode.leftChild = currNode.leftChild;
+            } else {
                 // Assuming right side of the subtree
                 parentNode.rightChild = currNode.leftChild;
             }
             return;
         }
 
-        if(currNode.leftChild ==  null){
-            if(root.data.equals(currNode.data)){
+        if (currNode.leftChild == null) {
+            if (root.data.equals(currNode.data)) {
                 this.root = currNode.rightChild;
                 return;
             }
 
-            if(parentNode.data.compareTo(currNode.data) > 0){
+            if (parentNode.data.compareTo(currNode.data) > 0) {
                 parentNode.leftChild = currNode.rightChild;
-            }else{
-                 parentNode.rightChild =  currNode.rightChild;
+            } else {
+                parentNode.rightChild = currNode.rightChild;
             }
             return;
         }
 
-        Node<T> leastNode =  findLeastNode(currNode);
-        T temp =  leastNode.data;
+        Node<T> leastNode = findLeastNode(currNode);
+        T temp = leastNode.data;
         deleteNode(temp);
         currNode.data = temp;
     }

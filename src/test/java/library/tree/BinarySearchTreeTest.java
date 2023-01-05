@@ -3,6 +3,8 @@ package library.tree;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.LinkedList;
+
 public class BinarySearchTreeTest {
 
     @Test
@@ -94,8 +96,8 @@ public class BinarySearchTreeTest {
 
 
     @Test
-    public void testDeleteNode(){
-        BinarySearchTree<Character> bst =  new BinarySearchTree<>();
+    public void testDeleteNode() {
+        BinarySearchTree<Character> bst = new BinarySearchTree<>();
         bst.insert('c');
         bst.insert('d');
         bst.insert('e');
@@ -105,6 +107,59 @@ public class BinarySearchTreeTest {
         Assert.assertFalse(bst.searchRecursive('e'));
         bst.deleteNode('p');
         Assert.assertFalse(bst.searchIterative('p'));
+    }
+
+    @Test
+    public void testPreTraversal() {
+        Integer[] arr =  new Integer[]{6,4,2,5,9,8,12};
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+
+        for(Integer i : arr)
+            bst.insert(i);
+
+        LinkedList<Integer> list = new LinkedList<>();
+        bst.preTraversal(list);
+
+        int count = 0;
+        for (Integer item : list)
+            Assert.assertEquals(item, arr[count++]);
+
+    }
+
+    @Test
+    public void testInorderTraversal() {
+        Integer[] arr =  new Integer[]{6,4,2,5,9,8,12};
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+
+        for(Integer i : arr)
+            bst.insert(i);
+
+        LinkedList<Integer> list = new LinkedList<>();
+        bst.inOrderTraversal(list);
+
+        Integer[] expected =  new Integer[]{2,4,5,6,8,9,12};
+        int count = 0;
+        for (Integer item : list)
+            Assert.assertEquals(item, expected[count++]);
+
+    }
+
+    @Test
+    public void testPostOrderTraversal() {
+        Integer[] arr =  new Integer[]{6,4,2,5,9,8,12};
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+
+        for(Integer i : arr)
+            bst.insert(i);
+
+        LinkedList<Integer> list = new LinkedList<>();
+        bst.postOrderTraversal(list);
+
+        Integer[] expected =  new Integer[]{2,5,4,8,12,9,6};
+        int count = 0;
+        for (Integer item : list)
+            Assert.assertEquals(item, expected[count++]);
+
     }
 
 
