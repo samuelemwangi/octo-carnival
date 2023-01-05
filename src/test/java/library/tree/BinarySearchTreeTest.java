@@ -69,6 +69,18 @@ public class BinarySearchTreeTest {
     }
 
     @Test
+    public void testSearchIterative() {
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        bst.insert(5);
+        bst.insert(9);
+        bst.insert(7);
+        bst.insert(10);
+
+        Assert.assertTrue(bst.searchIterative(10));
+        Assert.assertFalse(bst.searchIterative(1));
+    }
+
+    @Test
     public void testSearchRecursive() {
         BinarySearchTree<Character> bst = new BinarySearchTree<>();
         bst.insert('c');
@@ -78,6 +90,21 @@ public class BinarySearchTreeTest {
 
         Assert.assertTrue(bst.searchRecursive('e'));
         Assert.assertFalse(bst.searchRecursive('p'));
+    }
+
+
+    @Test
+    public void testDeleteNode(){
+        BinarySearchTree<Character> bst =  new BinarySearchTree<>();
+        bst.insert('c');
+        bst.insert('d');
+        bst.insert('e');
+        bst.insert('f');
+
+        bst.deleteNode('e');
+        Assert.assertFalse(bst.searchRecursive('e'));
+        bst.deleteNode('p');
+        Assert.assertFalse(bst.searchIterative('p'));
     }
 
 
