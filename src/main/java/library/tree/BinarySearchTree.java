@@ -59,4 +59,22 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
         return currNode;
     }
+
+    public boolean searchRecursive(T value){
+        return searchRecursive(value, this.root);
+    }
+
+    public boolean searchRecursive(T value, Node<T> currNode){
+        if(currNode == null)
+            return false;
+
+        if(currNode.data.equals(value))
+            return true;
+
+        if(currNode.data.compareTo(value) > 0){
+            return searchRecursive(value, currNode.leftChild);
+        }else{
+            return searchRecursive(value, currNode.rightChild);
+        }
+    }
 }
