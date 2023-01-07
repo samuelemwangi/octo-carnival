@@ -111,12 +111,12 @@ public class BinarySearchTree<T extends Comparable<T>> {
         preTraversal(list, currNode.rightChild);
     }
 
-    public void inOrderTraversal(LinkedList<T> list){
+    public void inOrderTraversal(LinkedList<T> list) {
         inOrderTraversal(list, this.root);
     }
 
-    public void inOrderTraversal(LinkedList<T> list, Node<T> currNode){
-        if(currNode == null)
+    public void inOrderTraversal(LinkedList<T> list, Node<T> currNode) {
+        if (currNode == null)
             return;
 
         inOrderTraversal(list, currNode.leftChild);
@@ -124,12 +124,12 @@ public class BinarySearchTree<T extends Comparable<T>> {
         inOrderTraversal(list, currNode.rightChild);
     }
 
-    public void postOrderTraversal(LinkedList<T> list){
+    public void postOrderTraversal(LinkedList<T> list) {
         postOrderTraversal(list, this.root);
     }
 
-    public void postOrderTraversal(LinkedList<T> list, Node<T> currNode){
-        if(currNode == null)
+    public void postOrderTraversal(LinkedList<T> list, Node<T> currNode) {
+        if (currNode == null)
             return;
 
         postOrderTraversal(list, currNode.leftChild);
@@ -217,5 +217,26 @@ public class BinarySearchTree<T extends Comparable<T>> {
             leatNode = leatNode.leftChild;
         }
         return leatNode;
+    }
+
+
+    public String printLeaves() {
+        StringBuilder s = new StringBuilder();
+        return printLeavesRecursive(this.root, s).toString();
+    }
+
+    public StringBuilder printLeavesRecursive(Node<T> currNode, StringBuilder s) {
+        if (currNode == null)
+            return s;
+
+        if (currNode.leftChild == null && currNode.rightChild == null)
+            return s.append(currNode.data).append(",");
+
+        if (currNode.leftChild != null)
+            printLeavesRecursive(currNode.leftChild, s);
+        printLeavesRecursive(currNode.rightChild, s);
+
+        return s;
+
     }
 }

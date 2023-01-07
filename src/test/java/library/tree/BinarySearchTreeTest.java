@@ -111,10 +111,10 @@ public class BinarySearchTreeTest {
 
     @Test
     public void testPreTraversal() {
-        Integer[] arr =  new Integer[]{6,4,2,5,9,8,12};
+        Integer[] arr = new Integer[]{6, 4, 2, 5, 9, 8, 12};
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
 
-        for(Integer i : arr)
+        for (Integer i : arr)
             bst.insert(i);
 
         LinkedList<Integer> list = new LinkedList<>();
@@ -128,16 +128,16 @@ public class BinarySearchTreeTest {
 
     @Test
     public void testInorderTraversal() {
-        Integer[] arr =  new Integer[]{6,4,2,5,9,8,12};
+        Integer[] arr = new Integer[]{6, 4, 2, 5, 9, 8, 12};
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
 
-        for(Integer i : arr)
+        for (Integer i : arr)
             bst.insert(i);
 
         LinkedList<Integer> list = new LinkedList<>();
         bst.inOrderTraversal(list);
 
-        Integer[] expected =  new Integer[]{2,4,5,6,8,9,12};
+        Integer[] expected = new Integer[]{2, 4, 5, 6, 8, 9, 12};
         int count = 0;
         for (Integer item : list)
             Assert.assertEquals(item, expected[count++]);
@@ -146,21 +146,33 @@ public class BinarySearchTreeTest {
 
     @Test
     public void testPostOrderTraversal() {
-        Integer[] arr =  new Integer[]{6,4,2,5,9,8,12};
+        Integer[] arr = new Integer[]{6, 4, 2, 5, 9, 8, 12};
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
 
-        for(Integer i : arr)
+        for (Integer i : arr)
             bst.insert(i);
 
         LinkedList<Integer> list = new LinkedList<>();
         bst.postOrderTraversal(list);
 
-        Integer[] expected =  new Integer[]{2,5,4,8,12,9,6};
+        Integer[] expected = new Integer[]{2, 5, 4, 8, 12, 9, 6};
         int count = 0;
         for (Integer item : list)
             Assert.assertEquals(item, expected[count++]);
-
     }
 
 
+    @Test
+    public void testPrintLeaves() {
+        Integer[] arr = new Integer[]{100, 80, 50, 90, 30, 60, 90, 85, 95, 120, 110, 108, 115, 140, 150};
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+
+        for (Integer i : arr)
+            bst.insert(i);
+
+        String expectedResult =  "30,60,85,95,108,115,150,";
+
+        Assert.assertEquals(bst.printLeaves(), expectedResult);
+
+    }
 }
