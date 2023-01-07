@@ -49,4 +49,29 @@ public class GeneralTreeChallengesTest {
         String expected =  "a,b,c,d,e,f,";
         Assert.assertEquals(challenges.bfsTraversal(root), expected);
     }
+
+    @Test
+    public void testSearch(){
+        Node<Integer> root = new Node<>(10),
+                b = new Node<>(5),
+                c = new Node<>(8),
+                d = new Node<>(4),
+                e = new Node<>(11),
+                f = new Node<>(4);
+
+        root.leftChild = b;
+        root.rightChild = c;
+
+        b.leftChild = d;
+        b.rightChild = e;
+
+        c.rightChild =  f;
+
+        GeneralTreeChallenges<Integer> challenges =  new GeneralTreeChallenges<>();
+        Assert.assertTrue(challenges.searchIterative(root, 11));
+        Assert.assertFalse(challenges.searchIterative(root, 21));
+
+        Assert.assertTrue(challenges.searchRecursive(root, 8));
+        Assert.assertFalse(challenges.searchIterative(root, 1));
+    }
 }

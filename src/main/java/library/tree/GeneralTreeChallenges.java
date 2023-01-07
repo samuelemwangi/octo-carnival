@@ -10,7 +10,7 @@ public class GeneralTreeChallenges<T extends Comparable<T>> {
      *
      * @param root start node
      * @return String
-     * @complexity - Time -  O(n), Space - O(n)
+     * @complexity Time ->  O(n), Space -> O(n)
      */
     public String dfsTraversalIterative(Node<T> root) {
         if (root == null)
@@ -46,7 +46,7 @@ public class GeneralTreeChallenges<T extends Comparable<T>> {
      * @param currNode current node
      * @param result String builder
      * @return appended String builder
-     * @complexity - Time -  O(n), Space - O(n)
+     * @complexity Time ->  O(n), Space -> O(n)
      */
     public StringBuilder dfsTraversalRecursive(Node<T> currNode, StringBuilder result) {
 
@@ -59,6 +59,11 @@ public class GeneralTreeChallenges<T extends Comparable<T>> {
         return result;
     }
 
+    /**
+     * @param root root node
+     * @return string of nodes
+     * @complexity Time -> O(n), Space -> O(n)
+     */
     public String bfsTraversal(Node<T> root) {
         if (root == null)
             return "";
@@ -76,5 +81,47 @@ public class GeneralTreeChallenges<T extends Comparable<T>> {
                 tracker.offer(item.rightChild);
         }
         return result.toString();
+    }
+
+    /***
+     *
+     * @param root root node
+     * @param value value to search
+     * @return true if found and false otherwise
+     * @complexity Time -> O(n), Space -> O(n)
+     */
+    public boolean searchIterative(Node<T> root, T value) {
+        if (root == null)
+            return false;
+        Queue<Node<T>> queue = new ArrayDeque<>();
+
+        queue.offer(root);
+        while (queue.peek() != null) {
+            Node<T> item = queue.poll();
+            if (item.data.equals(value))
+                return true;
+            if (item.leftChild != null)
+                queue.offer(item.leftChild);
+            if (item.rightChild != null)
+                queue.offer(item.rightChild);
+        }
+
+        return false;
+    }
+
+    /***
+     * @param currNode current node
+     * @param value value to search
+     * @return true if found and false otherwise
+     * @complexity Time -> O(n), Space -> O(n)
+     */
+    public boolean searchRecursive(Node<T> currNode, T value) {
+        if (currNode == null)
+            return false;
+
+        if (currNode.data.equals(value))
+            return true;
+
+        return searchRecursive(currNode.leftChild, value) || searchRecursive(currNode.rightChild, value);
     }
 }
