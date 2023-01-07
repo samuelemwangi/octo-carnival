@@ -42,4 +42,5 @@ public class ArrayQueue<T> {
         size--;
         return queue[tail++];
     }
+
 }

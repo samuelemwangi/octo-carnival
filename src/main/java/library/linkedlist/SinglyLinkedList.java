@@ -1,8 +1,8 @@
 package library.linkedlist;
 
-public class SinglyLinkedList {
-    public Node<Integer> headNode;
-    public Node<Integer> currentTail;
+public class SinglyLinkedList<T extends Comparable<T>> {
+    public Node<T> headNode;
+    public Node<T> currentTail;
     public int size;
 
     public SinglyLinkedList() {
@@ -15,8 +15,8 @@ public class SinglyLinkedList {
         return headNode == null;
     }
 
-    public void insertAtHead(Integer data) {
-        Node<Integer> newNode = new Node<>();
+    public void insertAtHead(T data) {
+        Node<T> newNode = new Node<>();
         newNode.data = data;
         newNode.nextNode = headNode;
 
@@ -26,8 +26,8 @@ public class SinglyLinkedList {
         size++;
     }
 
-    public void insertAtEnd(Integer data) {
-        Node<Integer> newNode = new Node<>();
+    public void insertAtEnd(T data) {
+        Node<T> newNode = new Node<>();
         newNode.data = data;
         if (isEmpty()) {
             headNode = newNode;
@@ -39,11 +39,11 @@ public class SinglyLinkedList {
         size++;
     }
 
-    public void insertAfter(Integer targetData, Integer data) {
-        Node<Integer> newNode = new Node<>();
+    public void insertAfter(T targetData, T data) {
+        Node<T> newNode = new Node<>();
         newNode.data = data;
 
-        Node<Integer> currNode = headNode;
+        Node<T> currNode = headNode;
 
         while (currNode != null) {
             if (currNode.data.equals(targetData)) {
@@ -57,8 +57,8 @@ public class SinglyLinkedList {
         size++;
     }
 
-    public boolean searchNode(Integer data) {
-        Node<Integer> currNode = headNode;
+    public boolean searchNode(T data) {
+        Node<T> currNode = headNode;
         while (currNode != null) {
             if (currNode.data.equals(data)) {
                 return true;
@@ -79,7 +79,7 @@ public class SinglyLinkedList {
         size--;
     }
 
-    public void deleteByValue(Integer data) {
+    public void deleteByValue(T data) {
         if (isEmpty()) {
             return;
         }
@@ -89,7 +89,7 @@ public class SinglyLinkedList {
             return;
         }
 
-        Node<Integer> currNode = headNode;
+        Node<T> currNode = headNode;
 
         while (currNode.nextNode != null) {
             if (currNode.nextNode.data.equals(data)) {
@@ -107,9 +107,9 @@ public class SinglyLinkedList {
         if (isEmpty())
             return;
 
-        Node<Integer> prevNode = null;
-        Node<Integer> currNode = headNode;
-        Node<Integer> nextNode = null;
+        Node<T> prevNode = null;
+        Node<T> currNode = headNode;
+        Node<T> nextNode = null;
 
 
         while (currNode != null) {
@@ -132,8 +132,8 @@ public class SinglyLinkedList {
     }
 
     public boolean hasLoop() {
-        Node<Integer> slow = headNode;
-        Node<Integer> fast = headNode;
+        Node<T> slow = headNode;
+        Node<T> fast = headNode;
 
         while (slow != null && fast != null && fast.nextNode != null) {
             slow = slow.nextNode;
@@ -147,7 +147,7 @@ public class SinglyLinkedList {
     }
 
 
-    public Node<Integer> mergeLists(Node<Integer> list1, Node<Integer> list2) {
+    public Node<T> mergeLists(Node<T> list1, Node<T> list2) {
         if (list1 == null) {
             return list2;
         }
@@ -156,10 +156,10 @@ public class SinglyLinkedList {
             return list1;
         }
 
-        Node<Integer> head = new Node<>();
+        Node<T> head = new Node<>();
 
 
-        if (list1.data <= list2.data) {
+        if (list1.data.compareTo(list2.data) <= 0) {
             head.data = list1.data;
             list1 = list1.nextNode;
         } else {
@@ -167,11 +167,11 @@ public class SinglyLinkedList {
             list2 = list2.nextNode;
         }
 
-        Node<Integer> currNode = head;
+        Node<T> currNode = head;
 
         while (list1 != null && list2 != null) {
-            Node<Integer> newNode = new Node<>();
-            if (list1.data <= list2.data) {
+            Node<T> newNode = new Node<>();
+            if (list1.data.compareTo(list2.data) <= 0) {
                 newNode.data = list1.data;
                 list1 = list1.nextNode;
             } else {
@@ -187,7 +187,7 @@ public class SinglyLinkedList {
         if (list1 != null) {
 
             while (list1 != null) {
-                Node<Integer> newNode = new Node<>();
+                Node<T> newNode = new Node<>();
                 newNode.data = list1.data;
 
                 list1 = list1.nextNode;
@@ -198,7 +198,7 @@ public class SinglyLinkedList {
 
         } else {
             while (list2 != null) {
-                Node<Integer> newNode = new Node<>();
+                Node<T> newNode = new Node<>();
                 newNode.data = list2.data;
 
                 list2 = list2.nextNode;
@@ -217,7 +217,7 @@ public class SinglyLinkedList {
             return;
 
         int size =  0;
-        Node<Integer> currNode =  headNode;
+        Node<T> currNode =  headNode;
 
         while (currNode != null){
             size++;
@@ -231,7 +231,7 @@ public class SinglyLinkedList {
         }
 
         currNode =  headNode;
-        Node<Integer> prevNode = null;
+        Node<T> prevNode = null;
         int trackLength = 0;
 
         while(trackLength < size - target){
@@ -245,7 +245,7 @@ public class SinglyLinkedList {
     }
 
     public void printList() {
-        Node<Integer> currNode = headNode;
+        Node<T> currNode = headNode;
         while (currNode != null) {
             System.out.printf(currNode.data + ", ");
             currNode = currNode.nextNode;

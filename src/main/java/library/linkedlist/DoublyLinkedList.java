@@ -1,7 +1,7 @@
 package library.linkedlist;
 
-public class DoublyLinkedList {
-    public Node<Integer> headNode;
+public class DoublyLinkedList<T extends Comparable<T>> {
+    public Node<T> headNode;
     public int size;
 
     public DoublyLinkedList() {
@@ -9,12 +9,13 @@ public class DoublyLinkedList {
         size = 0;
     }
 
+
     public boolean isEmpty() {
         return headNode == null;
     }
 
-    public void insertAtHead(Integer data) {
-        Node<Integer> newNode = new Node<>();
+    public void insertAtHead(T data) {
+        Node<T> newNode = new Node<>();
         newNode.data = data;
 
         if (isEmpty()) {
@@ -30,8 +31,8 @@ public class DoublyLinkedList {
         size++;
     }
 
-    public void insertAtEnd(Integer data) {
-        Node<Integer> newNode = new Node<>();
+    public void insertAtEnd(T data) {
+        Node<T> newNode = new Node<>();
         newNode.data = data;
 
         if (isEmpty()) {
@@ -40,7 +41,7 @@ public class DoublyLinkedList {
             return;
         }
 
-        Node<Integer> currNode = headNode;
+        Node<T> currNode = headNode;
 
         while (currNode.nextNode != null) {
             currNode = currNode.nextNode;
@@ -52,18 +53,18 @@ public class DoublyLinkedList {
 
     }
 
-    public void insertAfter(Integer target, Integer data) {
-        Node<Integer> newNode = new Node<>();
+    public void insertAfter(T target, T data) {
+        Node<T> newNode = new Node<>();
         newNode.data = data;
 
         if (isEmpty()) {
             return;
         }
 
-        Node<Integer> currNode = headNode;
+        Node<T> currNode = headNode;
         while (currNode != null) {
             if (currNode.data.equals(target)) {
-                Node<Integer> currentNextNode = currNode.nextNode;
+                Node<T> currentNextNode = currNode.nextNode;
                 currNode.nextNode = newNode;
                 newNode.nextNode = currentNextNode;
                 newNode.prevNode = currNode;
@@ -77,8 +78,8 @@ public class DoublyLinkedList {
         size++;
     }
 
-    public boolean searchNode(Integer data) {
-        Node<Integer> currNode = headNode;
+    public boolean searchNode(T data) {
+        Node<T> currNode = headNode;
 
         while (currNode != null) {
             if (currNode.data.equals(data)) {
@@ -100,7 +101,7 @@ public class DoublyLinkedList {
         size--;
     }
 
-    public void deleteByValue(Integer data) {
+    public void deleteByValue(T data) {
         if (isEmpty()) {
             return;
         }
@@ -110,11 +111,11 @@ public class DoublyLinkedList {
             return;
         }
 
-        Node<Integer> currNode = headNode;
+        Node<T> currNode = headNode;
         while (currNode != null){
             if(currNode.data.equals(data)){
-              Node<Integer> currNextNode = currNode.nextNode;
-              Node<Integer> currPrevNode =  currNode.prevNode;
+              Node<T> currNextNode = currNode.nextNode;
+              Node<T> currPrevNode =  currNode.prevNode;
 
               currPrevNode.nextNode = currNextNode;
               if(currNextNode != null){
@@ -130,9 +131,9 @@ public class DoublyLinkedList {
         if(isEmpty())
             return;
 
-        Node<Integer> prevNode =  null;
-        Node<Integer> currentNode = headNode;
-        Node<Integer> nextNode =  null;
+        Node<T> prevNode =  null;
+        Node<T> currentNode = headNode;
+        Node<T> nextNode =  null;
 
         while (currentNode != null){
             nextNode = currentNode.nextNode;
@@ -152,7 +153,7 @@ public class DoublyLinkedList {
         if(isEmpty())
             return;
 
-        Node<Integer> currNode =  headNode;
+        Node<T> currNode =  headNode;
 
         while (currNode.nextNode != null){
             currNode =  currNode.nextNode;
@@ -163,8 +164,8 @@ public class DoublyLinkedList {
 
     public boolean hasLoop(){
 
-        Node<Integer> slow = headNode;
-        Node<Integer> fast =  headNode;
+        Node<T> slow = headNode;
+        Node<T> fast =  headNode;
 
         while (slow != null && fast != null && fast.nextNode != null){
             slow =  slow.nextNode;
@@ -177,15 +178,15 @@ public class DoublyLinkedList {
 
     }
 
-    public Node<Integer> mergeLists(Node<Integer> list1, Node<Integer> list2){
+    public Node<T> mergeLists(Node<T> list1, Node<T> list2){
         if(list1 == null)
             return list2;
         if(list2 == null)
             return list1;
 
-        Node<Integer> head = new Node<>();
+        Node<T> head = new Node<>();
         
-        if(list1.data <= list2.data){
+        if(list1.data.compareTo(list2.data) <= 0){
             head.data =  list1.data;
             list1 = list1.nextNode;
         }else{
@@ -193,11 +194,11 @@ public class DoublyLinkedList {
             list2 = list2.nextNode;
         }
 
-        Node<Integer> currNode = head;
+        Node<T> currNode = head;
 
         while (list1 != null && list2 != null){
-            Node<Integer> newNode =  new Node<>();
-            if(list1.data <= list2.data){
+            Node<T> newNode =  new Node<>();
+            if(list1.data.compareTo(list2.data) <= 0){
                 newNode.data = list1.data;
                 list1 = list1.nextNode;
             }else{
@@ -226,7 +227,7 @@ public class DoublyLinkedList {
         if(headNode == null || target <= 0)
             return;
 
-        Node<Integer> currNode =  headNode;
+        Node<T> currNode =  headNode;
         int size = 0;
         while (currNode != null){
             size++;
@@ -240,7 +241,7 @@ public class DoublyLinkedList {
         }
 
         currNode =  headNode;
-        Node<Integer> prevNode =  null;
+        Node<T> prevNode =  null;
         int trackLength = 0;
 
         while (trackLength < size - target){
@@ -259,7 +260,7 @@ public class DoublyLinkedList {
 
 
     public void printList() {
-        Node<Integer> currNode = headNode;
+        Node<T> currNode = headNode;
         while (currNode != null) {
             System.out.printf(currNode.data + ", ");
             currNode = currNode.nextNode;
