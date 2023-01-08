@@ -62,6 +62,24 @@ public class GeneralArrayChallengesTest {
         Assert.assertEquals(toIntArray(actualRes2), expectedRes1);
     }
 
+
+    @Test
+    public void testMaximumToBuyAndSellStock() {
+        int[] arr1 = {7, 1, 5, 3, 6, 4};
+        int[] arr2 = {7, 6, 4, 3, 1};
+
+        GeneralArrayChallenges challenges = new GeneralArrayChallenges();
+
+        Assert.assertEquals(challenges.maximumToBuyAndSellStockBruteForce(arr1), 5);
+        Assert.assertEquals(challenges.maximumToBuyAndSellStockBruteForce(arr2), 0);
+
+        Assert.assertEquals(challenges.maximumToBuyAndSellStockOptimized(arr1), 5);
+        Assert.assertEquals(challenges.maximumToBuyAndSellStockOptimized(arr2), 0);
+    }
+
+
+
+
     private int[] toIntArray(List<Integer> list) {
         int[] res = new int[list.size()];
 

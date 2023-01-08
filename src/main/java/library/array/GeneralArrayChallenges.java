@@ -142,5 +142,39 @@ public class GeneralArrayChallenges {
         return result;
     }
 
+    /***
+     *
+     * @param arr subject array
+     * @return max profit
+     * @complexity Time -> O(n^2), Space -> O(1)
+     */
+    public int maximumToBuyAndSellStockBruteForce(int[] arr){
+        int result = 0;
+
+        for (int i  = 0; i < arr.length -1; i++)
+            for(int j = i+1; j < arr.length; j++)
+                result = Math.max(arr[j] - arr[i], result);
+
+        return result;
+    }
+
+
+    /***
+     * @param arr subject array
+     * @return max profit
+     * @complexity Time -> O(n), Space -> O(1)
+     */
+    public int maximumToBuyAndSellStockOptimized(int[] arr){
+        int result = 0;
+        int minPrice = Integer.MAX_VALUE;
+
+        for (int j : arr) {
+            minPrice = Math.min(minPrice, j);
+            result = Math.max(result, j - minPrice);
+        }
+
+        return result;
+    }
+
 
 }
