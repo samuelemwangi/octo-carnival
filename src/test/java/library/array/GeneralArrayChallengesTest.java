@@ -97,6 +97,17 @@ public class GeneralArrayChallengesTest {
         Assert.assertEquals(actual,expected);
     }
 
+    @Test
+    public void testRightRotateArray(){
+        int[] arr = {1, 2, 3, 4};
+        int[] expected = {4, 1, 2, 3};
+
+        GeneralArrayChallenges challenges = new GeneralArrayChallenges();
+        int[] actual =  challenges.rightRotateArray(arr);
+        Assert.assertEquals(actual, expected);
+
+    }
+
     private int[] toIntArray(List<Integer> list) {
         int[] res = new int[list.size()];
 
