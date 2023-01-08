@@ -177,4 +177,28 @@ public class GeneralArrayChallenges {
     }
 
 
+    /**
+     * @param arr subject array
+     * @return products array
+     * @complexity Time -> O(n), Space -> O(1)
+     */
+    public int[] elementsProductExceptItself(int[] arr){
+        int[] result =  new int[arr.length];
+        int product = 1;
+
+        for(int i =0; i < result.length; i++){
+            result[i] = product;
+            product *= arr[i];
+        }
+
+        product =  1;
+
+        for(int i =  result.length-1; i >= 0; i--){
+            result[i] *= product;
+            product *= arr[i];
+        }
+
+        return result;
+    }
+
 }

@@ -3,6 +3,7 @@ package library.array;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class GeneralArrayChallengesTest {
@@ -77,8 +78,24 @@ public class GeneralArrayChallengesTest {
         Assert.assertEquals(challenges.maximumToBuyAndSellStockOptimized(arr2), 0);
     }
 
+    @Test
+    public void testElementsProductExceptItself() {
+        int[] arr = {1, 2, 3, 4};
 
+        int[] expected = new int[arr.length];
 
+        Arrays.fill(expected, 1);
+
+        for (int i = 0; i < expected.length; i++)
+            for (int j = 0; j < expected.length; j++)
+                if (i != j)
+                    expected[i] *= arr[j];
+
+        GeneralArrayChallenges challenges = new GeneralArrayChallenges();
+        int[] actual =  challenges.elementsProductExceptItself(arr);
+
+        Assert.assertEquals(actual,expected);
+    }
 
     private int[] toIntArray(List<Integer> list) {
         int[] res = new int[list.size()];
